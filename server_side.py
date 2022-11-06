@@ -1,6 +1,3 @@
-# from PyQt5.QtGui import *
-# from PyQt5.QtWidgets import *
-# from PyQt5.QtCore import *
 from PyQt5.QtWidgets import QGridLayout, QPushButton, QLineEdit, QTextEdit
 from PyQt5.QtWidgets import QLabel
 from PyQt5.QtWidgets import QWidget, QMainWindow, QApplication
