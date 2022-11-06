@@ -37,7 +37,7 @@ class Worker(QRunnable):
     '''
     Worker thread
     execute function with given arguments
-    and signals
+    and worker signals.
     '''
     def __init__(self, arg, f):
         super(Worker, self).__init__()
@@ -58,6 +58,9 @@ class Worker(QRunnable):
 
 
 def fun_to_run(signals, arg):
+    """
+    Custom function for worker using sockets.
+    """
     try:
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             port = int(arg.port_num.text())
@@ -100,24 +103,29 @@ class MainWindow(QMainWindow):
 
         layout = QGridLayout()
 
+        # LABEL
         self.input_label = QLabel()
         self.input_label.setText("Port number: ")
         layout.addWidget(self.input_label, 0, 0)
 
+        # PORT NUM IN
         self.port_num = QLineEdit()
         self.port_num.setText("1")
         self.port_num.setMaximumWidth(40)
         layout.addWidget(self.port_num, 1, 0)
 
+        # START BUTTON
         self.start_button = QPushButton("Start server")
         self.start_button.pressed.connect(self.start)
         layout.addWidget(self.start_button, 0, 1)
 
+        # MSG BOX
         self.message_box = QTextEdit()
         self.message_box.setReadOnly(True)
         self.message_box.setDisabled(True)
         layout.addWidget(self.message_box, 2, 1)
 
+        # STATUS TXT
         self.status = QLineEdit()
         self.status.setReadOnly(True)
         self.status.setDisabled(True)
@@ -131,6 +139,9 @@ class MainWindow(QMainWindow):
         self.show()
 
     def start(self):
+        """
+        START BUTTON LINK
+        """
         self.status.setText("Running")
         self.worker = Worker(self, fun_to_run)
         self.worker.signals.result.connect(self.update_text)
@@ -138,6 +149,9 @@ class MainWindow(QMainWindow):
         self.start_button.setDisabled(True)
 
     def update_text(self, new):
+        """
+        WORKER LINK
+        """
         print('in update')
         self.message_box.append(new)
         self.start()
