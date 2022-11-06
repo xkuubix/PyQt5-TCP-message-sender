@@ -14,27 +14,33 @@ class MainWindow(QMainWindow):
 
         layout = QGridLayout()
 
+        # LABEL
         self.input_label = QLabel()
         self.input_label.setText("Port number: ")
         layout.addWidget(self.input_label, 0, 0)
 
+        # IP IN LABEL
         self.ip_label = QLabel()
         self.ip_label.setText("Send message to [IP]: ")
         layout.addWidget(self.ip_label, 0, 1)
 
+        # IP IN LABEL
         self.ip_input = QLineEdit()
         self.ip_input.setText("127.0.0.1")
         layout.addWidget(self.ip_input, 1, 1)
 
+        # PORT NUM IN
         self.port_num = QLineEdit()
         self.port_num.setText("1")
         self.port_num.setMaximumWidth(40)
         layout.addWidget(self.port_num, 1, 0)
 
+        # START BUTTON
         self.start_button = QPushButton("Send")
         self.start_button.pressed.connect(self.send)
         layout.addWidget(self.start_button, 3, 1)
 
+        # MESSAGE BOX
         self.message_box = QTextEdit()
         self.message_box.setReadOnly(False)
         self.message_box.setDisabled(False)
@@ -48,6 +54,9 @@ class MainWindow(QMainWindow):
         self.show()
 
     def send(self):
+        """
+        SEND BUTTON LINK
+        """
         print(self.message_box.toPlainText())
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             ip = self.ip_input.text()
